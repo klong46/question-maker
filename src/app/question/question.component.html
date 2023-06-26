@@ -1,0 +1,7 @@
+<mat-card class="item" *ngIf="question">
+  <h2>{{ question.category }}</h2>
+  <p>{{ question.text }}</p>
+  <p>Date: {{ question.date }}</p>
+  <p>{{ orderNum }}</p>
+  <button mat-button (click)="edit.emit(question)">Edit</button>
+</mat-card>
