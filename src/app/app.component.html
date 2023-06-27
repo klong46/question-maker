@@ -23,7 +23,7 @@
           <mat-datepicker #picker></mat-datepicker>
         </mat-form-field>
 
-        <div *ngIf="qListLength < 10">
+        <div *ngIf="qListLength < 10" style="display: inline;">
           <button (click)="addQuestion()" mat-button>
             <mat-icon>add</mat-icon> Add Question
           </button>
