@@ -23,9 +23,12 @@
           <mat-datepicker #picker></mat-datepicker>
         </mat-form-field>
 
-        <button (click)="addQuestion()" mat-button>
-          <mat-icon>add</mat-icon> Add Question
-        </button>
+        <div *ngIf="qListLength < 10">
+          <button (click)="addQuestion()" mat-button>
+            <mat-icon>add</mat-icon> Add Question
+          </button>
+        </div>
+        
 
         <h1>Category: {{dayCategory}}</h1>
         <app-question *ngFor="let question of questionList | async; let i = index" [question]="question" [orderNum]="i+1" (edit)="editQuestion($event)"></app-question>
