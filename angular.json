@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "daily-trivia": {
+    "question-maker": {
       "projectType": "application",
       "schematics": {},
       "root": "",
@@ -13,7 +13,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/daily-trivia",
+            "outputPath": "dist/question-maker",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": [
@@ -61,10 +61,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "browserTarget": "daily-trivia:build:production"
+              "browserTarget": "question-maker:build:production"
             },
             "development": {
-              "browserTarget": "daily-trivia:build:development"
+              "browserTarget": "question-maker:build:development"
             }
           },
           "defaultConfiguration": "development"
@@ -72,7 +72,7 @@
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "daily-trivia:build"
+            "browserTarget": "question-maker:build"
           }
         },
         "test": {
@@ -98,7 +98,7 @@
           "builder": "@angular/fire:deploy",
           "options": {
             "version": 2,
-            "browserTarget": "daily-trivia:build:production"
+            "browserTarget": "question-maker:build:production"
           }
         }
       }
