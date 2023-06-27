@@ -21,7 +21,7 @@ export class AppComponent implements OnInit{
   }
 
   ngOnInit(): void {
-      
+    this.setCategory();
   }
 
   getCollectionDate(): string{
@@ -35,11 +35,15 @@ export class AppComponent implements OnInit{
   dateChange() {
       this.collectionDate = this.getCollectionDate();
       this.questionList = this.store.collection(this.getCollectionName()).valueChanges({ idField: 'id' }) as Observable<Question[]>;
-      let qListForCat = this.questionList.subscribe(questions => {
-        this.categoryInput = (questions[0] && questions[0].category) ? questions[0].category : '';
-        this.dayCategory = this.categoryInput;
-        qListForCat.unsubscribe();
-      });
+      this.setCategory();
+  }
+
+  setCategory(){
+    let qListForCat = this.questionList.subscribe(questions => {
+      this.categoryInput = (questions[0] && questions[0].category) ? questions[0].category : '';
+      this.dayCategory = this.categoryInput;
+      qListForCat.unsubscribe();
+    });
   }
 
   addQuestion() {
