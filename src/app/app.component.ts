@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Question } from './question/question';
 import { MatDialog } from '@angular/material/dialog';
 import { QuestionDialogComponent, QuestionDialogResult } from './question-dialog/question-dialog.component';
@@ -10,7 +10,7 @@ import { Observable } from 'rxjs';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
-export class AppComponent{
+export class AppComponent implements OnInit{
   selectedDate: Date = new Date();
   collectionDate: string = this.getCollectionDate();
   questionList = this.store.collection(this.getCollectionName()).valueChanges({ idField: 'id' }) as Observable<Question[]>;
@@ -18,6 +18,10 @@ export class AppComponent{
   dayCategory: string = '';
 
   constructor(private dialog: MatDialog, private store: AngularFirestore) { 
+  }
+
+  ngOnInit(): void {
+      
   }
 
   getCollectionDate(): string{
@@ -31,8 +35,11 @@ export class AppComponent{
   dateChange() {
       this.collectionDate = this.getCollectionDate();
       this.questionList = this.store.collection(this.getCollectionName()).valueChanges({ idField: 'id' }) as Observable<Question[]>;
-      this.categoryInput = '';
-      this.dayCategory = '';
+      let qListForCat = this.questionList.subscribe(questions => {
+        this.categoryInput = (questions[0] && questions[0].category) ? questions[0].category : '';
+        this.dayCategory = this.categoryInput;
+        qListForCat.unsubscribe();
+      });
   }
 
   addQuestion() {
