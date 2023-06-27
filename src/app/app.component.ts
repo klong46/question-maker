@@ -10,10 +10,30 @@ import { Observable } from 'rxjs';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
-export class AppComponent {
-  questionList = this.store.collection('questionList').valueChanges({ idField: 'id' }) as Observable<Question[]>;
+export class AppComponent{
+  selectedDate: Date = new Date();
+  collectionDate: string = this.getCollectionDate();
+  questionList = this.store.collection(this.getCollectionName()).valueChanges({ idField: 'id' }) as Observable<Question[]>;
+  categoryInput: string = '';
+  dayCategory: string = '';
 
-  constructor(private dialog: MatDialog, private store: AngularFirestore) { }
+  constructor(private dialog: MatDialog, private store: AngularFirestore) { 
+  }
+
+  getCollectionDate(): string{
+    return this.selectedDate.getMonth()+'-'+this.selectedDate.getDate()+'-'+this.selectedDate.getFullYear();
+  }
+
+  getCollectionName(): string{
+    return 'questionList - '+this.collectionDate;
+  }
+
+  dateChange() {
+      this.collectionDate = this.getCollectionDate();
+      this.questionList = this.store.collection(this.getCollectionName()).valueChanges({ idField: 'id' }) as Observable<Question[]>;
+      this.categoryInput = '';
+      this.dayCategory = '';
+  }
 
   addQuestion() {
     const dialogRef = this.dialog.open(QuestionDialogComponent, {
@@ -28,7 +48,9 @@ export class AppComponent {
         if (!result) {
           return;
         }
-        this.store.collection('questionList').add(result.question);
+        result.question.date = this.selectedDate;
+        result.question.category = this.dayCategory;
+        this.store.collection('questionList - '+this.collectionDate).add(result.question);
       });
   }
 
@@ -45,9 +67,21 @@ export class AppComponent {
         return;
       }
       if (result.delete) {
-        this.store.collection('questionList').doc(question.id).delete();
+        this.store.collection(this.getCollectionName()).doc(question.id).delete();
       } else {
-        this.store.collection('questionList').doc(question.id).update(question);
+        this.store.collection(this.getCollectionName()).doc(question.id).update(question);
+      }
+    });
+  }
+
+  changeCategory(){
+    this.dayCategory = this.categoryInput;
+    let questionsObservable = this.questionList.subscribe(questions =>{
+      for(let i = 0; i < questions.length; i++){
+        let newQuestion = questions[i];
+        newQuestion.category = this.dayCategory;
+        this.store.collection(this.getCollectionName()).doc(questions[i].id).update(newQuestion);
+        questionsObservable.unsubscribe();
       }
     });
   }

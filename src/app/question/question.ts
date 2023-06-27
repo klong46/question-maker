@@ -1,6 +1,6 @@
 export class Question{
     id?: string
-    date: string;
+    date: Date;
     category: string;
     text: string;
     answer: string;
@@ -12,6 +12,6 @@ export class Question{
         this.category = category;
         this.text = text;
         this.answer = answer;
-        this.date = new Date().toLocaleDateString();
+        this.date = new Date();
     }
 }
