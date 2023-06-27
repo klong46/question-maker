@@ -1,33 +1,32 @@
 <mat-toolbar color="primary"></mat-toolbar>
-<mat-form-field>
-  <mat-label>Category</mat-label>
-  <input matInput [(ngModel)]="categoryInput">
-</mat-form-field>
-<button (click)="changeCategory()" mat-button>
-  <mat-icon>done</mat-icon> Change Category
-</button>
-
-
-<mat-form-field>
-  <mat-label>Choose a date</mat-label>
-  <input matInput [matDatepicker]="picker" [(ngModel)]="selectedDate" (dateChange)="dateChange()">
-  <mat-hint>MM/DD/YYYY</mat-hint>
-  <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
-  <mat-datepicker #picker></mat-datepicker>
-</mat-form-field>
-
-
   <div class="content-wrapper">
-    <button (click)="addQuestion()" mat-button>
-      <mat-icon>add</mat-icon> Add Question
-    </button>
-  
     <div class="container-wrapper">
       <div class="container">
         <mat-toolbar color="primary">
           <mat-icon>question_mark</mat-icon>
           <span>Question Maker</span>
         </mat-toolbar>
+
+        <mat-form-field>
+          <mat-label>Category</mat-label>
+          <input matInput [(ngModel)]="categoryInput">
+        </mat-form-field>
+        <button (click)="changeCategory()" mat-button>
+          <mat-icon>done</mat-icon> Change Category
+        </button>
+        
+        <mat-form-field>
+          <mat-label>Choose a date</mat-label>
+          <input matInput [matDatepicker]="picker" [(ngModel)]="selectedDate" (dateChange)="dateChange()">
+          <mat-hint>MM/DD/YYYY</mat-hint>
+          <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+          <mat-datepicker #picker></mat-datepicker>
+        </mat-form-field>
+
+        <button (click)="addQuestion()" mat-button>
+          <mat-icon>add</mat-icon> Add Question
+        </button>
+
         <h1>Category: {{dayCategory}}</h1>
         <app-question *ngFor="let question of questionList | async; let i = index" [question]="question" [orderNum]="i+1" (edit)="editQuestion($event)"></app-question>
       </div>
