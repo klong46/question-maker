@@ -1,11 +1,11 @@
 <mat-form-field>
-    <mat-label>Category</mat-label>
-    <input matInput cdkFocusInitial [(ngModel)]="data.question.category" />
+    <mat-label>Question</mat-label>
+    <input matInput cdkFocusInitial [(ngModel)]="data.question.text" />
   </mat-form-field>
   
   <mat-form-field>
-    <mat-label>Question</mat-label>
-    <textarea matInput [(ngModel)]="data.question.text"></textarea>
+    <mat-label>Answer</mat-label>
+    <textarea matInput [(ngModel)]="data.question.answer"></textarea>
   </mat-form-field>
   
   <div mat-dialog-actions>

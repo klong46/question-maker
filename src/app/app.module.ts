@@ -27,7 +27,10 @@ import { provideRemoteConfig,getRemoteConfig } from '@angular/fire/remote-config
 import { provideStorage,getStorage } from '@angular/fire/storage';
 import { AngularFireModule } from '@angular/fire/compat';
 import { AngularFirestoreModule } from '@angular/fire/compat/firestore';
-
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatNativeDateModule } from '@angular/material/core';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+ 
 @NgModule({
   declarations: [
     AppComponent,
@@ -46,6 +49,9 @@ import { AngularFirestoreModule } from '@angular/fire/compat/firestore';
     MatDialogModule,
     MatInputModule,
     FormsModule,
+    MatFormFieldModule,
+    MatNativeDateModule,
+    MatDatepickerModule,
     AngularFireModule.initializeApp(environment.firebase),
     AngularFirestoreModule,
     provideFirebaseApp(() => initializeApp(environment.firebase)),
